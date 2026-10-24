@@ -1,0 +1,31 @@
+name: TaskAnalyzer CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  test-harness:
+    name: Execucao do Test Harness (Pytest)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar ambiente Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar dependencias via requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Executar Test Harness Automatizado
+        run: |
+          pytest tests/test_harness.py -v

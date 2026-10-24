@@ -1,0 +1,20 @@
+project: sdd-task-analyzer
+version: "1.0.0"
+paradigm: Spec-Driven Development (SDD)
+runtime:
+  language: python
+  min_version: "3.11"
+  container_base_image: "python:3.11-slim"
+ci_cd:
+  provider: GitHub Actions
+  os: ubuntu-latest
+  branches:
+    - main
+    - develop
+  test_command: "pytest tests/test_harness.py -v"
+governance:
+  context_rules_file: "CONTEXT_RULES.md"
+  allowed_external_libraries:
+    - pytest
+  persistence_allowed: false
+  validation_model: "Critical-in-the-Loop"
